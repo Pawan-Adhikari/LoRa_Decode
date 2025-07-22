@@ -65,8 +65,6 @@ def main():
     selected_sdr_dev_string = None
     print(f"Executing SDR detection in Docker: {' '.join(run_detection_command)}")
     try:
-        # Run in interactive mode, capturing output to a pipe to read it
-        # We need to explicitly pass stdin, stdout, stderr for interactivity
         process = subprocess.Popen(run_detection_command, stdin=sys.stdin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         stdout_lines = []
         stderr_lines = []
@@ -141,8 +139,8 @@ def main():
         docker_image_name,
         "python3", "Generic_Decoder.py",
         "--sdr-dev-string", selected_sdr_dev_string,
-        "--sample-rate", "1024000.000000",
-        "--center-freq", "412e6",
+        "--sample-rate", "250e3",
+        "--center-freq", "433e6",
         "--gain", "20"
     ]
     

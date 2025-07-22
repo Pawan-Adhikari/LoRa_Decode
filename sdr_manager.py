@@ -87,10 +87,6 @@ class SDRManager:
             return False
 
     def detect_and_select_sdr(self):
-        """
-        Detects connected SDRs using SoapySDR within Docker, prompts user for selection.
-        Returns the selected SDR's device string.
-        """
         print("\n--- Detecting Connected SDR Devices via SoapySDR ---")
         
         try:
@@ -130,18 +126,17 @@ class SDRManager:
             print("NO_SDR_DEVICES_FOUND") # <--- Signal to Orchestrator
             return None
 
-        selected_index = -1
-        while selected_index < 0 or selected_index >= len(device_options):
-            try:
-                # This input() will only be reached if devices are found
-                user_input = 0
-                selected_index = int(user_input)
-            except ValueError:
-                print("Invalid input. Please enter a number.")
-            except KeyboardInterrupt:
-                print("\nUser interrupted. Exiting.")
-                sys.exit(0)
-
+        #selected_index = -1
+        #while selected_index == -1 or selected_index <= len(device_options):
+            #try:
+                #user_input = input("Which device do you want to choose ?")
+                #selected_index = int(user_input)
+            #except ValueError:
+                #print("Invalid input. Please enter an index from above.")
+            #except KeyboardInterrupt:
+                #print("\nUser interrupted. Exiting.")
+                #sys.exit(0)
+        selected_index = 0
 
         chosen_device = device_options[selected_index]
         print(f"\nSelected SDR: '{chosen_device['label']}' (Driver: {chosen_device['driver_key']})")

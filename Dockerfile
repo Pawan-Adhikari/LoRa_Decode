@@ -36,7 +36,6 @@ RUN apt-get update && apt-get install -y \
     libiio-utils \
     libiio-dev \
     libad9361-dev \
-    matplotlib \
     && rm -rf /var/lib/apt/lists/*
 
 # --- Fix GNU Radio buffer allocation bug ---
@@ -65,6 +64,8 @@ RUN git clone https://github.com/pothosware/SoapyPlutoSDR.git . && \
     make -j$(nproc) && \
     make install && \
     ldconfig
+
+RUN /usr/lib/uhd/utils/uhd_images_downloader.py
 
 # Set working directory for your LoRa decoding scripts
 WORKDIR /app
