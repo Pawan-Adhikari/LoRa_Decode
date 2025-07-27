@@ -76,7 +76,7 @@ class Generic_Decoder(gr.top_block, Qt.QWidget):
         ##################################################
 
         # Soapy Custom Source block - uses the dynamically passed sdr_dev_string
-        stream_args = 'bufflen=16384' # Common stream arg, can be made dynamic too
+        stream_args = '' # Common stream arg, can be made dynamic too
         tune_args = ['']
         settings = ['']
         print(f"Attempting to open SDR with device string: '{self.sdr_dev_string}'")

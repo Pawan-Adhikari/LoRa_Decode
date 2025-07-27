@@ -87,6 +87,10 @@ class SDRManager:
             return False
 
     def detect_and_select_sdr(self):
+        """
+        Detects connected SDRs using SoapySDR within Docker, prompts user for selection.
+        Returns the selected SDR's device string.
+        """
         print("\n--- Detecting Connected SDR Devices via SoapySDR ---")
         
         try:
@@ -126,19 +130,22 @@ class SDRManager:
             print("NO_SDR_DEVICES_FOUND") # <--- Signal to Orchestrator
             return None
 
-        #selected_index = -1
-        #while selected_index == -1 or selected_index <= len(device_options):
-            #try:
-                #user_input = input("Which device do you want to choose ?")
-                #selected_index = int(user_input)
-            #except ValueError:
-                #print("Invalid input. Please enter an index from above.")
-            #except KeyboardInterrupt:
-                #print("\nUser interrupted. Exiting.")
-                #sys.exit(0)
-        selected_index = 0
+        for selected_index in range(0, len(device_options)):
+            try:
+                user_input = 3
+                # This input() will only be reached if devices are found
+                selected_index = int(user_input)
+                if(device_options[selected_index]['driver_key'] == "rtlsdr") or (device_options[selected_index]['driver_key'] == "uhd"):
+                    user_input = selected_index 
+                selected_index += 1
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+            except KeyboardInterrupt:
+                print("\nUser interrupted. Exiting.")
+                sys.exit(0)
 
-        chosen_device = device_options[selected_index]
+
+        chosen_device = device_options[user_input]
         print(f"\nSelected SDR: '{chosen_device['label']}' (Driver: {chosen_device['driver_key']})")
         
         print(f"SoapySDR driver module for '{chosen_device['driver_key']}' is assumed to be installed in Docker container.")
